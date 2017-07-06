@@ -31,7 +31,7 @@ var con = mysql.createConnection({
                 console.dir(err);
                 return;
             }
-            console.log(data)
+            console.log(data);
         });
 
     con.connect(function(err) {

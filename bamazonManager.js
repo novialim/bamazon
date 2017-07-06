@@ -29,10 +29,53 @@ var con = mysql.createConnection({
 	            console.dir(err);
 	            return;
 	        }
-	        console.log(data)
+	        console.log(data);
+
+	        mainmgr();	
+
 	    });
 
 	con.connect(function(err) {
 	    if (err) throw err;
 
 	});
+
+	function mainmgr(){
+		inquirer.prompt([
+		{
+			type: 'list',
+			name: 'mgrchoice',
+			message: 'What would you like to do?',
+			choices: [
+				"View Products for Sale",
+				"View Low Inventory Products",
+				"Add to Inventory",
+				"Add New Product",
+				"Exit Program"
+			]
+		}
+		]).then(function(selection){
+			switch(selection.mgrchoice){
+				case "View Products for Sale":
+					//viewProduct();
+				break;
+
+				case "View Low Inventory Products":
+					//viewLowProduct();
+				break;		
+
+				case "Add to Inventory":
+					//addInventory();
+				break;				
+
+				case "Add New Product":
+					//addNewProduct();
+				break;		
+
+				case "Exit Program":
+                    console.log("Good Bye!".rainbow); 
+                    process.exit(); 	
+			}
+		})
+	}
+
