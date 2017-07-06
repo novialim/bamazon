@@ -25,21 +25,21 @@ var con = mysql.createConnection({
     database: 'bamazon_db'
 });
 
-figlet('Welcome to Bamazon!!', function(err, data) {
-        if (err) {
-            console.log('Something went wrong...');
-            console.dir(err);
-            return;
-        }
-        console.log(data)
+    figlet('Welcome to Bamazon!!', function(err, data) {
+            if (err) {
+                console.log('Something went wrong...');
+                console.dir(err);
+                return;
+            }
+            console.log(data)
+        });
+
+    con.connect(function(err) {
+        if (err) throw err;
+
     });
 
-con.connect(function(err) {
-    if (err) throw err;
 
-});
-
-main();
  
     function main(){
 
@@ -200,3 +200,5 @@ main();
                 }
             })
     }
+
+main();    
