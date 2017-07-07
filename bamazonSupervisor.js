@@ -10,4 +10,168 @@
 // Hint: You may need to look into aliases in MySQL.
 // Hint: You may need to look into GROUP BYs.
 // Hint: You may need to look into JOINS.
-// HINT: There may be an NPM package that can log the table to the console. What's is it? Good question :)
+
+var figlet = require('figlet');
+var mysql = require('mysql');
+var Table = require('cli-table2');
+var inquirer = require("inquirer");
+var colors = require('colors');
+
+var con = mysql.createConnection({
+    host: "localhost",
+    port: 3306,
+    user: "root",
+    password: "password",
+    database: 'bamazon_db'
+});
+
+	figlet('Bamazon Supervisor Console', function(err, data) {
+	        if (err) {
+	            console.log('Something went wrong...');
+	            console.dir(err);
+	            return;
+	        }
+	        console.log(data);
+	        mainsuper();	
+
+	    });
+
+	con.connect(function(err) {
+	    if (err) throw err;
+
+	});
+
+	// View Product Sales by Department
+	// Create New Department
+
+	function mainsuper(){
+		inquirer.prompt([
+		{
+			type: 'list',
+			name: 'superchoice',
+			message: 'What would you like to do?',
+			choices: [
+				"View Product Sales by Department",
+				"Create New Department",
+				"Exit Program"
+			]
+		}
+		]).then(function(selection){
+			switch(selection.superchoice){
+				case "View Product Sales by Department":
+					viewProductsSales();
+					setTimeout(function () {continuePrompt();}, 500);
+
+				break;
+
+				case "Create New Department":
+					createNewDeptPrompt();
+				break;		
+
+				case "Exit Program":
+                    console.log("Good Bye!".rainbow); 
+                    process.exit(); 	
+			}
+		})
+	}
+
+	function continuePrompt(){
+		inquirer.prompt([
+		{
+			type: 'list',
+			message: 'Do you wish to continue?\n',
+			choices: ['Yes','No\n'],
+			name: "callMainScreen"
+		}
+		]).then(function(selection){
+			if(selection.callMainScreen == 'Yes'){
+				mainsuper();
+			}
+			else{
+				console.log("Good Bye!".rainbow);
+				process.exit();
+			}
+
+		})
+	}
+
+	function viewProductsSales(){
+
+		var table = new Table({
+			head: ['Department ID', 'Department Name', 'Over Head Costs', 'Product Sales', 'Total Profit'], 
+			colWidths: [15, 35, 25, 20, 20]
+
+		});
+
+		con.query('SELECT department_id, departments.department_name, over_head_costs, product_sales, (product_sales - over_head_costs) AS total_profit FROM departments, products WHERE departments.department_name=products.department_name GROUP BY products.department_name;', function(err,res){
+
+			if (err) throw err;
+
+			if(res.length>0){
+				for (var i=0; i<res.length; i++){
+					table.push([res[i].department_id, res[i].department_name, res[i].over_head_costs, res[i].product_sales, res[i].total_profit]);
+				}
+
+				console.log(table.toString());
+			}
+			else
+				continuePrompt();
+		});
+
+	}
+
+	function createNewDeptPrompt(){
+		inquirer.prompt([
+		{
+			type: "input",
+			message: "Please Enter The New Department.",
+			name: "department_name"
+		},
+		{
+			type: "input",
+			message: "Please Enter Over Head Costs of The New Department.",
+			name: "overhead"
+		},
+		{
+			type: "confirm",
+			message: "Please Confirm Adding New Department.",
+			name: "confirm",
+			default: true
+		}
+		]).then(function(selection){
+			if(selection.confirm){
+
+				if(selection.department_name!=="" || selection.overhead!==""){
+					insertDept(selection.department_name, selection.overhead);
+				}
+				else{
+					console.log("Please enter valid values".red);
+					createNewDeptPrompt();
+				}
+			}
+			else{
+				console.log("\n That's okay, come back again when you are serious about adding new departments. :B ".yellow);
+				continuePrompt();
+			}
+		});
+	}
+
+	function insertDept(department_name, overhead){
+          
+      con.query('INSERT INTO `departments` SET ?',
+      {
+        department_name: department_name,
+        over_head_costs: overhead
+      }
+       , function (error, results, fields) {
+        if (error) {
+          return connection.rollback(function() {
+            throw error;
+          });
+        }
+
+        console.log(results.affectedRows +" new department, "+department_name+" added!\n");
+        continuePrompt();
+
+      });
+    }

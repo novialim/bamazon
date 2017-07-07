@@ -171,12 +171,23 @@ var con = mysql.createConnection({
               // error will be an Error if one occurred during the query
               if (error) throw error;
               
-              totalCost += results[0].price*quantity;
+              var productSales = results[0].price*quantity;
+              totalCost += productSales;
 
-              console.log("\nYour total cost for this purchase is: $"+results[0].price*quantity+"."); 
+              console.log("\nYour total cost for this purchase is: $"+productSales+"."); 
+              updateProductSales(productID, productSales);
               continuePrompt(); 
-        });      
 
+        });      
+    }
+
+    function updateProductSales(productID, productSales){
+        con.query('UPDATE `products` SET `product_sales` = `product_sales`+? WHERE `item_id` = ?', [productSales, productID], function (error, results, fields) {
+          if (error) throw error;
+          
+          console.log(colors.green("\nAdded $"+productSales+" into total product sales revenue."));  
+          
+        });   
     }
 
 
