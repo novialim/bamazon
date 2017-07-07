@@ -100,7 +100,7 @@ var con = mysql.createConnection({
             }
           ])
           .then(function(inquirerResponse) {
-            // If the inquirerResponse confirms, we displays the inquirerResponse's username and pokemon from the answers.
+            
             if (inquirerResponse.quantity && !isNaN(inquirerResponse.quantity)) {
               console.log("\nYour required quantity is: " + inquirerResponse.quantity);
               checkQuantity(product,inquirerResponse.quantity);
