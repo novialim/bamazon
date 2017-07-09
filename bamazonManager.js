@@ -221,22 +221,46 @@ var con = mysql.createConnection({
 		{
 			type: "input",
 			message: "What Product Are You Adding? Enter Product Name.",
-			name: "productName"
+			name: "productName",
+		    validate: function(value) {
+	            if ((value.trim()=="") === false) {
+	              return true;
+	            }
+	            return false;
+            }
 		},
 		{
 			type: "input",
 			message: "Please Enter Product Department.",
-			name: "department"
+			name: "department",
+		    validate: function(value) {
+	            if ((value.trim()=="") === false) {
+	              return true;
+	            }
+	            return false;
+            }
 		},
 		{
 			type: "input",
 			message: "Please Enter Product Price.",
-			name: "price"
+			name: "price",
+		    validate: function(value) {
+	            if ((value.trim()=="") === false && isNaN(value) === false) {
+	              return true;
+	            }
+	            return false;
+            }
 		},
 		{
 			type: "input",
 			message: "Please Enter Product Quantity",
-			name: "quantity"
+			name: "quantity",
+		    validate: function(value) {
+	            if ((value.trim()=="") === false && isNaN(value) === false) {
+	              return true;
+	            }
+	            return false;
+            }			
 		},
 		{
 			type: "confirm",

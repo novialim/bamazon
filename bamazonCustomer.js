@@ -25,21 +25,25 @@ var con = mysql.createConnection({
     database: 'bamazon_db'
 });
 
-    figlet('Welcome to Bamazon!!', function(err, data) {
+
+    con.connect(function(err) {
+        if (err) throw err;
+
+        welcomeMsg();
+    });
+  
+    function welcomeMsg(){
+
+      figlet('Welcome to Bamazon!!', function(err, data) {
             if (err) {
                 console.log('Something went wrong...');
                 console.dir(err);
                 return;
             }
             console.log(data);
-        });
-
-    con.connect(function(err) {
-        if (err) throw err;
-
-    });
-
-
+            main();    
+      });
+    }
  
     function main(){
 
@@ -70,12 +74,18 @@ var con = mysql.createConnection({
             {
               type: "input",
               message: "Enter the ID of the product you would like to buy.\n",
-              name: "product"
+              name: "product",
+              validate: function(value) {
+                if ((value.trim()=="") === false && isNaN(value) === false) {
+                  return true;
+                }
+                return false;
+              }
             }
           ])
           .then(function(inquirerResponse) {
             
-            if (inquirerResponse.product && !isNaN(inquirerResponse.product) && idArr.indexOf(parseInt(inquirerResponse.product)) > -1 ) {
+            if (inquirerResponse.product && idArr.indexOf(parseInt(inquirerResponse.product)) > -1 ) {
               console.log("\nYour chosen product ID is: " + inquirerResponse.product);
               quantityPrompt(inquirerResponse.product);
               
@@ -108,7 +118,7 @@ var con = mysql.createConnection({
             else {
               // if user enter non numeric or blank
 
-              console.log("Please select a valid quantity.");
+              console.log("Please select a valid quantity.".red);
               quantityPrompt(product);
 
             }
@@ -176,8 +186,6 @@ var con = mysql.createConnection({
 
               console.log("\nYour total cost for this purchase is: $"+productSales+"."); 
               updateProductSales(productID, productSales);
-              continuePrompt(); 
-
         });      
     }
 
@@ -186,7 +194,8 @@ var con = mysql.createConnection({
           if (error) throw error;
           
           console.log(colors.green("\nAdded $"+productSales+" into total product sales revenue."));  
-          
+
+          continuePrompt();           
         });   
     }
 
@@ -212,4 +221,3 @@ var con = mysql.createConnection({
             })
     }
 
-main();    

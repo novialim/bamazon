@@ -125,12 +125,24 @@ var con = mysql.createConnection({
 		{
 			type: "input",
 			message: "Please Enter The New Department.",
-			name: "department_name"
+			name: "department_name",
+		    validate: function(value) {
+	            if ((value=="") === false) {
+	              return true;
+	            }
+	            return false;
+            }			
 		},
 		{
 			type: "input",
 			message: "Please Enter Over Head Costs of The New Department.",
-			name: "overhead"
+			name: "overhead",
+		    validate: function(value) {
+	            if ((value=="") === false && isNaN(value) === false) {
+	              return true;
+	            }
+	            return false;
+            }			
 		},
 		{
 			type: "confirm",
