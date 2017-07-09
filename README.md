@@ -73,6 +73,8 @@ An Amazon-like CLI storefront with MySQL. The app will take in orders from custo
 
 ### Challenge #3: Supervisor View (Final Level)
 
+![Supervisor View Demo](http://i.imgur.com/OAjlfSi.gif)
+
 1. Create a new MySQL table called `departments`. Your table should include the following columns:
 
    * department_id
@@ -101,15 +103,5 @@ An Amazon-like CLI storefront with MySQL. The app will take in orders from custo
 | 02            | Clothing        | 60000           | 100000        | 40000        |
 
 6. The `total_profit` column should be calculated on the fly using the difference between `over_head_costs` and `product_sales`. `total_profit` should not be stored in any database. You should use a custom alias.
-
-7. If you can't get the table to display properly after a few hours, then feel free to go back and just add `total_profit` to the `departments` table.
-
-   * Hint: You may need to look into aliases in MySQL.
-
-   * Hint: You may need to look into GROUP BYs.
-
-   * Hint: You may need to look into JOINS.
-
-   * **HINT**: There may be an NPM package that can log the table to the console. What's is it? Good question :)
 
 - - -
