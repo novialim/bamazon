@@ -47,6 +47,8 @@ An Amazon-like CLI storefront with MySQL. The app will take in orders from custo
 
 ### Challenge #2: Manager View (Next Level)
 
+![Manager View Demo](http://i.imgur.com/Y4LyPVg.gif)
+
 * Create a new Node application called `bamazonManager.js`. Running this application will:
 
   * List a set of menu options:
