@@ -2,9 +2,7 @@
 
 ## Overview
 
-In this activity, you'll be creating an Amazon-like storefront with the MySQL skills you learned this week. The app will take in orders from customers and deplete stock from the store's inventory. As a bonus task, you can program your app to track product sales across your store's departments and then provide a summary of the highest-grossing departments in the store.
-
-Make sure you save and require the MySQL and Inquirer npm packages in your homework files--your app will need them for data input and storage.
+An Amazon-like CLI storefront with MySQL. The app will take in orders from customers and deplete stock from the store's inventory. As a bonus task, you can program your app to track product sales across your store's departments and then provide a summary of the highest-grossing departments in the store.
 
 ## Instructions
 
@@ -47,10 +45,6 @@ Make sure you save and require the MySQL and Inquirer npm packages in your homew
 
 - - -
 
-* If this activity took you between 8-10 hours, then you've put enough time into this assignment. Feel free to stop here -- unless you want to take on the next challenge.
-
-- - -
-
 ### Challenge #2: Manager View (Next Level)
 
 * Create a new Node application called `bamazonManager.js`. Running this application will:
@@ -72,10 +66,6 @@ Make sure you save and require the MySQL and Inquirer npm packages in your homew
   * If a manager selects `Add to Inventory`, your app should display a prompt that will let the manager "add more" of any item currently in the store.
 
   * If a manager selects `Add New Product`, it should allow the manager to add a completely new product to the store.
-
-- - -
-
-* If you finished Challenge #2 and put in all the hours you were willing to spend on this activity, then rest easy! Otherwise continue to the next and final challenge.
 
 - - -
 
@@ -121,19 +111,3 @@ Make sure you save and require the MySQL and Inquirer npm packages in your homew
    * **HINT**: There may be an NPM package that can log the table to the console. What's is it? Good question :)
 
 - - -
-
-### Minimum Requirements
-
-Attempt to complete homework assignment as described in instructions. If unable to complete certain portions, please pseudocode these portions to describe what remains to be completed.
-
-- - -
-
-### One More Thing
-
-If you have any questions about this project or the material we have covered, please post them in the community channels in slack so that your fellow developers can help you! If you're still having trouble, you can come to office hours for assistance from your instructor and TAs.
-
-**Good Luck!**
-
-## Copyright
-
-Coding Boot Camp (C) 2016. All Rights Reserved.
