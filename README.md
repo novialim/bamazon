@@ -73,7 +73,7 @@ An Amazon-like CLI storefront with MySQL. The app will take in orders from custo
 
 ### Challenge #3: Supervisor View (Final Level)
 
-![Supervisor View Demo](http://i.imgur.com/OAjlfSi.gif)
+![Supervisor View Demo](http://i.imgur.com/NLHPcHZ.gif)
 
 1. Create a new MySQL table called `departments`. Your table should include the following columns:
 
