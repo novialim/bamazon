@@ -98,12 +98,12 @@ var con = mysql.createConnection({
 	function viewProductsSales(){
 
 		var table = new Table({
-			head: ['Department ID', 'Department Name', 'Over Head Costs', 'Product Sales', 'Total Profit'], 
+			head: ['Department ID', 'Department Name', 'Over Head Costs', 'Product Sales', 'Total Profit/Loss'], 
 			colWidths: [15, 35, 25, 20, 20]
 
 		});
 
-		con.query('SELECT department_id, departments.department_name, over_head_costs, product_sales, (product_sales - over_head_costs) AS total_profit FROM departments, products WHERE departments.department_name=products.department_name GROUP BY products.department_name;', function(err,res){
+		con.query('SELECT department_id, departments.department_name, over_head_costs, product_sales, (product_sales - over_head_costs) AS total_profit FROM departments, products WHERE departments.department_name=products.department_name GROUP BY products.department_name ORDER BY departments.department_id;', function(err,res){
 
 			if (err) throw err;
 
